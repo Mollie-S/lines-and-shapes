@@ -13,24 +13,24 @@ function draw(event) {
 
   for (i = 0; i < 1; i++) {
     context.beginPath();
-    //   context.moveTo(lastPosition.x, lastPosition.y);
-    //   context.lineTo(event.x, event.y);
 
+    let randomColor = Math.floor(Math.random() * 16277216).toString(16);
     context.arc(lastPosition.x, lastPosition.y, 10, 0, Math.PI * 2, true);
     context.fill();
+    context.fillStyle = `#${randomColor}`;
 
-    lastPosition.x = Math.random() * event.x;
-    lastPosition.y = Math.random() * event.y;
+    lastPosition.x = Math.random() * 20 + event.clientX;
+    lastPosition.y = Math.random() * 20 + event.clientY;
 
     console.log(lastPosition.x);
-    console.log(event.x);
+    console.log(event);
   }
 }
 
-window.addEventListener("mousemove", draw);
-window.addEventListener("mouseup", () => (isDrawing = false));
-window.addEventListener("mousedown", () => {
+window.addEventListener("pointermove", draw);
+window.addEventListener("pointerup", () => (isDrawing = false));
+window.addEventListener("pointerdown", () => {
   isDrawing = true;
-  lastPosition.x = event.x;
-  lastPosition.y = event.y;
+  lastPosition.x = event.clientX;
+  lastPosition.y = event.clientY;
 });
