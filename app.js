@@ -11,15 +11,20 @@ const context = canvas.getContext("2d");
 function draw(event) {
   if (!isDrawing) return;
 
-  context.beginPath();
-  context.moveTo(lastPosition.x, lastPosition.y);
-  context.lineTo(event.x, event.y);
-  context.stroke();
+  for (i = 0; i < 1; i++) {
+    context.beginPath();
+    //   context.moveTo(lastPosition.x, lastPosition.y);
+    //   context.lineTo(event.x, event.y);
 
-  lastPosition.x = event.x;
-  lastPosition.y = event.y;
+    context.arc(lastPosition.x, lastPosition.y, 10, 0, Math.PI * 2, true);
+    context.fill();
 
-  console.log(event);
+    lastPosition.x = Math.random() * event.x;
+    lastPosition.y = Math.random() * event.y;
+
+    console.log(lastPosition.x);
+    console.log(event.x);
+  }
 }
 
 window.addEventListener("mousemove", draw);
