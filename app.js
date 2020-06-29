@@ -1,7 +1,4 @@
-const mouse = {
-  x: undefined,
-  y: undefined,
-};
+const lastPosition = {};
 
 let isDrawing = false;
 
@@ -15,12 +12,12 @@ function draw(event) {
   if (!isDrawing) return;
 
   context.beginPath();
-  context.moveTo(mouse.x, mouse.y);
+  context.moveTo(lastPosition.x, lastPosition.y);
   context.lineTo(event.x, event.y);
   context.stroke();
 
-  mouse.x = event.x;
-  mouse.y = event.y;
+  lastPosition.x = event.x;
+  lastPosition.y = event.y;
 
   console.log(event);
 }
@@ -29,6 +26,6 @@ window.addEventListener("mousemove", draw);
 window.addEventListener("mouseup", () => (isDrawing = false));
 window.addEventListener("mousedown", () => {
   isDrawing = true;
-  mouse.x = event.x;
-  mouse.y = event.y;
+  lastPosition.x = event.x;
+  lastPosition.y = event.y;
 });
