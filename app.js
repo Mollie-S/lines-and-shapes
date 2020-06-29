@@ -11,26 +11,51 @@ const context = canvas.getContext("2d");
 function draw(event) {
   if (!isDrawing) return;
 
-  for (i = 0; i < 1; i++) {
-    context.beginPath();
+  context.beginPath();
 
-    let randomColor = Math.floor(Math.random() * 16277216).toString(16);
-    context.arc(lastPosition.x, lastPosition.y, 10, 0, Math.PI * 2, true);
-    context.fill();
-    context.fillStyle = `#${randomColor}`;
+  let randomColor = Math.floor(Math.random() * 16277216).toString(16);
+  context.arc(lastPosition.x, lastPosition.y, 10, 0, Math.PI * 2, true);
+  context.fill();
+  context.fillStyle = `#${randomColor}`;
 
-    lastPosition.x = Math.random() * 20 + event.clientX;
-    lastPosition.y = Math.random() * 20 + event.clientY;
+  lastPosition.x = Math.random() * 10 + event.clientX;
+  lastPosition.y = Math.random() * 10 + event.clientY;
+}
 
-    console.log(lastPosition.x);
-    console.log(event);
+function getTouchPosition(event) {
+  if (event.touches) {
+    if ((event.touches.length = 1)) {
+      const touch = event.touches[0];
+      touchX = touch.pageX - touch.target.offsetLeft;
+      touchY = touch.pageY - touch.target.offsetTop;
+    }
   }
 }
 
-window.addEventListener("pointermove", draw);
-window.addEventListener("pointerup", () => (isDrawing = false));
-window.addEventListener("pointerdown", () => {
+function drawOnTouch(event) {
+  getTouchPosition(event);
+
+  context.beginPath();
+
+  let randomColor = Math.floor(Math.random() * 16277216).toString(16);
+  context.arc(lastPosition.x, lastPosition.y, 10, 0, Math.PI * 2, true);
+  context.fill();
+  context.fillStyle = `#${randomColor}`;
+
+  lastPosition.x = Math.random() * 10 + touchX;
+  lastPosition.y = Math.random() * 10 + touchY;
+
+  console.log("hello");
+  event.preventDefault();
+}
+
+window.addEventListener("mousemove", draw);
+window.addEventListener("mouseup", () => (isDrawing = false));
+window.addEventListener("mousedown", () => {
   isDrawing = true;
   lastPosition.x = event.clientX;
   lastPosition.y = event.clientY;
 });
+
+canvas.addEventListener("touchstart", drawOnTouch, false);
+canvas.addEventListener("touchmove", drawOnTouch, false);
