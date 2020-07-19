@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Mollie-S/lines-and-shapes#readme",
   "devDependencies": {
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.26.10",
     "gulp": "^4.0.2"
   }
 }
